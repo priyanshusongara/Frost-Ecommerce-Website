@@ -1,0 +1,267 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div class="container cart-container">
+     {% if not cart_items %}
+     <h2 class="cart-title">Your Cart is Empty !</h2>
+     <a href="{% url 'store' %}" class="btn-btn234">
+                Continue Shopping
+            </a>
+
+     {% else%}
+
+    <h2 class="cart-title">Your Cart</h2>
+
+    <div class="cart-layout">
+
+        <!-- 🛒 LEFT: CART ITEMS -->
+         {% for cart_item in cart_items %}
+        <div class="cart-items">
+
+            
+            <div class="cart-card">
+
+                <!-- Product Image -->
+                <div class="cart-img">
+                  <a href="{{ cart_item.product.get_url }}"> <img src="{{ cart_item.product.images.url }}"> </a> 
+                </div>
+
+                <!-- Product Info -->
+                <div class="cart-info">
+                    <a class="name123" href="{{ cart_item.product.get_url }}">
+                    <h4 >{{cart_item.product.product_name }}</h4> </a>
+                    <p class="price">${{ cart_item.product.price }} per item</p>
+
+                    <!-- Quantity -->
+                    <div class="qty-box">
+                        <a href="{% url 'remove_cart' cart_item.product.id %}" class="qty-btn">-</a>
+                        <span>{{ cart_item.quantity }}</span>
+                        <a href="{% url 'add_cart' cart_item.product.id %}" class="qty-btn">+</a>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="cart-total">
+                    ${{ cart_item.sub_total }}
+                </div> <br>
+
+                <!-- Remove -->
+                <div class="cart-remove">
+                    <a href="{% url 'remove_cart_item' cart_item.product.id %}">Remove</a>
+                </div>
+
+            </div>
+           
+
+        </div>
+        {% endfor %}
+        <!-- 💰 RIGHT: SUMMARY -->
+        <div class="cart-summary">
+
+            <h4>Order Summary</h4>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>${{ total }}</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Tax(2%)</span>
+                <span>${{tax}}</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span>${{ grand_total }}</span>
+            </div>
+
+            <a href="" class="checkout-btn">
+                Proceed to Checkout
+            </a>
+
+            <a href="{% url 'store' %}" class="continue-btn">
+                Continue Shopping
+            </a>
+ 
+        </div>
+
+    </div> {% endif %}
+</div>
+
+<style>
+    .btn-btn234{
+    background-color: #FFD700; /* Your Yellow */
+    color: #000;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px 30px;
+    border: 3px solid #000;
+    border-radius: 0px; /* Sharp edges for that industrial look */
+    position: relative;
+    display: inline-block;
+    transition: all 0.1s ease;
+    /* This creates the 3D depth */
+    box-shadow: 6px 6px 0px #000; 
+    text-decoration: none !important;
+   
+}
+
+.btn-btn234:hover {
+    background-color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px #000;
+    color: #000;
+}
+.btn-btn234:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px #000;
+}
+
+
+</style>
+
+<style>
+    .cart-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.cart-title {
+    font-weight: 900;
+    margin-bottom: 30px;
+}
+
+/* Layout */
+.cart-layout {
+    display: flex;
+    gap: 30px;
+}
+
+.cart-items {
+    flex: 2;
+}
+
+.cart-summary {
+    flex: 1;
+    background: #f8f8f8;
+    padding: 25px;
+    border-radius: 15px;
+    height: fit-content;
+}
+
+/* Cart Card */
+.cart-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.cart-card:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+/* Image */
+.cart-img img {
+    width: 80px;
+    border-radius: 10px;
+}
+
+/* Info */
+.cart-info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.cart-info h4 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.price {
+    color: #666;
+}
+
+/* Quantity */
+.qty-box {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.qty-btn {
+    background: #eee;
+    padding: 5px 10px;
+    margin: 0 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* Total */
+.cart-total {
+    font-weight: 700;
+}
+
+/* Remove */
+.cart-remove a {
+    color: red;
+    font-size: 0.8rem;
+}
+
+/* Summary */
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 900;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+/* Buttons */
+.checkout-btn {
+    display: block;
+    background: #FFD700;
+    color: black;
+    text-align: center;
+    padding: 12px;
+    border-radius: 30px;
+    margin-top: 20px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.continue-btn {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.name123{text-decoration: None;}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .cart-layout {
+        flex-direction: column;
+    }
+}
+</style>
+
+{% endblock %}

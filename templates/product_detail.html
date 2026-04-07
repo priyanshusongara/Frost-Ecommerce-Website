@@ -57,7 +57,17 @@
                 {% if single_product.stock <= 0 %} <br>
                 <h2 class="ofs"> Out of stock</h3> 
                 {% else %}
-                <button class="buy-now-btn">Add To Cart</button>
+                     {% if in_cart %}
+                     <a href="#" class="atc">
+                    <button class="buy-now-btn">Added to Cart</button> </a>
+                    <a href="{% url 'cart' %}" class="atc">
+                    <button class="buy-now-btn">View Cart</button> </a>
+
+
+                {% else %}     
+                <a href="{% url 'add_cart' single_product.id %}" class="atc">
+                    <button class="buy-now-btn">Add To Cart</button> </a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>

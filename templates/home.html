@@ -147,7 +147,7 @@
     <div class="promo-bar">⚡ Free Shipping on Orders Over $100 — Adventure Awaits ⚡</div>
 
     <header>
-        <a href="#" class="logo-area">
+        <a href="{% url 'home' %}" class="logo-area">
             <div class="logo-box">
                 <svg viewBox="0 0 24 24" fill="black"><path d="M12.76 3.76L15.35 6.35L19.11 5.25L22 8.14L18.66 11.47V21H5.34V11.47L2 8.14L4.89 5.25L8.65 6.35L11.24 3.76C11.63 3.37 12.37 3.37 12.76 3.76Z""")/>></svg>
             </div>
@@ -155,17 +155,18 @@
         </a>
 
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search Frost Outdoor Essentials...">
+            <form action="{% url 'search' %}" class="search" METHOD='GET'>
+            <input type="text" class="search-bar" name="keyword" placeholder="Search Frost Outdoor Essentials..."> 
             <!-- Icon is now on the RIGHT -->
             <div class="search-icon-right">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
+            </div></form>
         </div>
 
         <nav class="nav-right">
-            <a href="#" class="nav-link nav-hide">Store</a>
+            <a href="{% url 'store' %}" class="nav-link nav-hide">Store</a>
             <a href="#" class="nav-link nav-hide">Login / Register</a>
-            <a href="#" class="cart-btn nav-link">Cart (0)</a>
+            <a href="{% url 'cart' %}" class="cart-btn nav-link">Cart {{ cart_count }}</a>
         </nav>
     </header>
 
