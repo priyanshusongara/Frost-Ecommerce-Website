@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="frost-product-container">
+    <!-- Main Product Section -->
+    <div class="product-main">
+        <!-- Left: Image Gallery -->
+        <div class="product-gallery">
+            <div class="main-img-box">
+                <img src="{{ single_product.images.url}}" alt="Product">
+                <div class="frost-tag">TOP RATED</div>
+            </div>
+        </div>
+
+        <!-- Right: Purchase Details -->
+        <div class="product-info-panel">
+            <h1 class="product-name">{{ single_product.product_name}}</h1>
+            <div class="price-row">
+                <span class="current-price">${{ single_product.price}}</span>
+                <span class="rating-stars">★★★★☆ (12 Reviews)</span>
+            </div>
+            
+            <p class="description">
+                {{ single_product.description}}
+            </p>
+
+            <!-- Customization Options -->
+            <div class="options">
+                <div class="option-block">
+                    <label>Colors</label>
+                    <div class="color-chips">
+                        <div class="chip active" style="background: #1A1A1A;"></div>
+                        <div class="chip" style="background: #FFD700;"></div>
+                        <div class="chip" style="background: #FFFFFF; border: 1px solid #000;"></div>
+                    </div>
+                </div>
+
+                <div class="option-block">
+                    <label>Size</label>
+                    <div class="size-chips">
+                        <button class="s-chip">S</button>
+                        <button class="s-chip active">M</button>
+                        <button class="s-chip">L</button>
+                        <button class="s-chip">XL</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="action-grid">
+                <div class="qty-picker">
+                    <button onclick="qtyUpdate(-1)">-</button>
+                    <input type="text" id="product-qty" value="1" readonly>
+                    <button onclick="qtyUpdate(1)">+</button>
+                </div> 
+                {% if single_product.stock <= 0 %} <br>
+                <h2 class="ofs"> Out of stock</h3> 
+                {% else %}
+                <button class="buy-now-btn">Add To Cart</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Section -->
+    <section class="reviews-section">
+        <h2 class="section-title">Customer Feedback</h2>
+        
+        <!-- Individual Review -->
+        <div class="review-card">
+            <div class="review-header">
+                <span class="reviewer-name">Alex M.</span>
+                <span class="review-stars">★★★★★</span>
+            </div>
+            <p class="review-text">Best hoodie I've ever owned. The yellow accents are super bright and the fit is perfect.</p>
+        </div>
+
+        <!-- Review Input -->
+        <div class="add-review-box">
+            <h3>Leave a Review</h3>
+            <textarea placeholder="Tell us what you think..."></textarea>
+            <button class="submit-review">Submit Review</button>
+        </div>
+    </section>
+</div>
+
+<style>
+    :root {
+        --yellow: #FFD700;
+        --black: #1A1A1A;
+        --white: #FFFFFF;
+    }
+
+    .frost-product-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 20px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Layout Grid */
+    .product-main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        margin-bottom: 80px;
+    }
+
+    /* Image Styling */
+    .main-img-box {
+        position: relative;
+        border: 5px solid var(--black);
+        box-shadow: 15px 15px 0px var(--yellow);
+    }
+    .main-img-box img { width: 100%; display: block; }
+    .frost-tag {
+        position: absolute; top: -15px; left: -15px;
+        background: var(--black); color: var(--yellow);
+        padding: 8px 15px; font-weight: 900; transform: rotate(-2deg);
+    }
+
+    /* Info Styling */
+    .product-name { font-size: 3rem; font-weight: 900; margin: 0; text-transform: uppercase; }
+    .price-row { margin-bottom: 20px; }
+    .current-price { font-size: 2rem; font-weight: 800; color: var(--black); margin-right: 15px; }
+    .description { font-size: 1.1rem; line-height: 1.6; border-left: 4px solid var(--yellow); padding-left: 20px; }
+
+    /* Picker Styling */
+    .option-block { margin-top: 25px; }
+    .option-block label { display: block; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+    
+    .color-chips, .size-chips { display: flex; gap: 12px; }
+    .chip { width: 35px; height: 35px; border: 2px solid var(--black); cursor: pointer; }
+    .chip.active { box-shadow: 0 0 0 3px var(--yellow); }
+    
+    .s-chip { 
+        padding: 10px 18px; border: 2px solid var(--black); background: var(--white);
+        font-weight: 900; cursor: pointer; transition: 0.2s;
+    }
+    .s-chip.active { background: var(--black); color: var(--white); }
+
+    /* Action Grid */
+    .action-grid { display: flex; gap: 15px; margin-top: 40px; }
+    .qty-picker { display: flex; border: 3px solid var(--black); }
+    .qty-picker button { background: var(--yellow); border: none; width: 40px; font-weight: 900; cursor: pointer; }
+    .qty-picker input { width: 50px; text-align: center; border: none; font-weight: 900; }
+    
+    .buy-now-btn { 
+        flex: 1; background: var(--black); color: var(--white); border: none;
+        font-weight: 900; text-transform: uppercase; cursor: pointer;
+        transition: 0.3s;
+    }
+    .buy-now-btn:hover { background: var(--yellow); color: var(--black); transform: translate(-3px, -3px); box-shadow: 5px 5px 0px var(--black); }
+
+    /* Reviews */
+    .section-title { font-size: 2rem; font-weight: 900; text-transform: uppercase; border-bottom: 5px solid var(--black); display: inline-block; margin-bottom: 30px; }
+    .review-card { background: #f9f9f9; border: 2px solid var(--black); padding: 20px; margin-bottom: 20px; }
+    .reviewer-name { font-weight: 800; margin-right: 10px; }
+    .review-stars { color: var(--black); font-weight: bold; }
+    
+    .add-review-box textarea { width: 100%; height: 100px; border: 2px solid var(--black); padding: 15px; margin: 15px 0; font-family: inherit; }
+    .submit-review { background: var(--black); color: var(--white); padding: 12px 25px; border: none; font-weight: 800; cursor: pointer; }
+    .ofs{color: #FFD700; }
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .product-main { grid-template-columns: 1fr; }
+        .product-name { font-size: 2.2rem; }
+        .action-grid { flex-direction: column; }
+        .main-img-box { box-shadow: 8px 8px 0px var(--yellow); }
+    }
+</style>
+
+<script>
+    function qtyUpdate(val) {
+        let q = document.getElementById('product-qty');
+        let newQty = parseInt(q.value) + val;
+        if(newQty >= 1) q.value = newQty;
+    }
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,194 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Store Container -->
+<div class="frost-store">
+    <!-- Header with Filter and Total Count -->
+    <header class="store-header">
+        <div class="category-filter">
+            
+            <label for="categories">Filter:</label>
+            
+            <select onchange="redirectCategory(this)">
+    <option value="">All items</option>
+
+    {% for category in links %}
+        <option value="{{ category.get_url }}">
+            {{ category.category_name }}
+        </option>
+    {% endfor %}
+</select>
+            
+        </div>
+        <div class="cart-summary">
+            <span class="total-items"> Total items: <strong id="cart-count">{{product_count}}</strong></span>
+        </div>
+    </header>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="product-grid">
+        <!-- Product 1 -->
+         {% for product in products %} 
+         
+        <div class="product-card" data-category="seasonal">
+            <div class="badge">New</div>
+            <a href="{{ product.get_url }}">
+            <div class="product-image">
+                <img src="{{ product.images.url }}" alt="Frost Pro">
+            </div> </a>
+            <div class="product-info">
+                <a href="{{ product.get_url }}" class="card product-link">
+                <h3>{{ product.product_name }}</h3>
+                <p class="price">${{ product.price }}</p> </a>
+                <button class="add-btn" onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
+
+        {% endfor %}
+       
+
+        
+    </div>
+</div>
+
+<style>
+    :root {
+        --yellow: #FFD700;
+        --black: #1A1A1A;
+        --white: #FFFFFF;
+        --gray: #F4F4F4;
+    }
+
+    .frost-store {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--white);
+        padding: 40px;
+        min-height: 100vh;
+        color: var(--black);
+    }
+
+    /* Header & Filter */
+    .store-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 4px solid var(--black);
+        padding-bottom: 20px;
+        margin-bottom: 40px;
+    }
+
+    .category-filter select {
+        background: var(--yellow);
+        border: 2px solid var(--black);
+        padding: 8px 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    .cart-summary {
+        background: var(--black);
+        color: var(--white);
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+    #cart-count { color: var(--yellow); font-size: 1.2rem; }
+
+    /* Grid & Cards */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+    }
+
+    .product-card {
+        background: var(--white);
+        border: 3px solid var(--black);
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px) rotate(1deg);
+        box-shadow: 10px 10px 0px var(--yellow);
+    }
+
+    .badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: var(--black);
+        color: var(--white);
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        z-index: 10;
+    }
+
+    .badge.highlight { background: var(--yellow); color: var(--black); }
+
+    .product-image img { width: 100%; height: auto; }
+
+    .product-info { padding: 20px; text-align: center; }
+
+    .product-info h3 { font-weight: 900; margin-bottom: 10px; }
+
+    .price { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; }
+
+    /* Button */
+    .add-btn {
+        width: 100%;
+        background: var(--yellow);
+        color: var(--black);
+        border: 2px solid var(--black);
+        padding: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .add-btn:hover {
+        background: var(--black);
+        color: var(--white);
+    }
+</style>
+
+<script>
+    let count = 0;
+    function addToCart() {
+        count++;
+        const display = document.getElementById('cart-count');
+        display.innerText = count;
+        // Animation feedback
+        display.parentElement.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.2)', color: '#FFD700' },
+            { transform: 'scale(1)' }
+        ], { duration: 300 });
+    }
+function redirectCategory(select) {
+    if (select.value !== "") {
+        window.location.href = select.value;
+    }
+}
+</script>
+<style>.product-link,
+.product-link:visited,
+.product-link:hover,
+.product-link:active,
+.product-link:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.product-link * {
+    color: inherit !important;
+}</style>    
+
+</style>
+{% endblock %}
+

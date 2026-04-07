@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+env/
+venv/
+.venv/
+
+# Django
+*.log
+db.sqlite3
+media/
+
+# Static files (optional if using collectstatic)
+staticfiles/
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# Mac / Windows junk
+.DS_Store
+Thumbs.db
+
+# Migrations (optional - usually keep them)
+# */migrations/*
+# !*/migrations/__init__.py
+
+# PyCharm
+.idea/
+
+# Coverage / Testing
+.coverage
+htmlcov/
+.tox/
+.pytest_cache/
+
+# Node (if you use frontend tools)
+node_modules/
+
+# Build files
+dist/
+build/
