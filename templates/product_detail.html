@@ -2,6 +2,7 @@
 
 {% block content %}
 
+
 <div class="frost-product-container">
     <!-- Main Product Section -->
     <div class="product-main">
@@ -11,7 +12,9 @@
                 <img src="{{ single_product.images.url}}" alt="Product">
                 <div class="frost-tag">TOP RATED</div>
             </div>
-        </div>
+  </div>
+
+        <form action="{% url 'add_cart' single_product.id %}" method="GET">
 
         <!-- Right: Purchase Details -->
         <div class="product-info-panel">
@@ -26,51 +29,81 @@
             </p>
 
             <!-- Customization Options -->
-            <div class="options">
-                <div class="option-block">
-                    <label>Colors</label>
-                    <div class="color-chips">
-                        <div class="chip active" style="background: #1A1A1A;"></div>
-                        <div class="chip" style="background: #FFD700;"></div>
-                        <div class="chip" style="background: #FFFFFF; border: 1px solid #000;"></div>
-                    </div>
-                </div>
+            
+            <form method="POST" action="{% url 'add_cart' single_product.id %}" class="frost-options">
+             {% csrf_token %}
+<br>
+<div class="row">
+    <div class="item-option-select frost-select">
 
-                <div class="option-block">
-                    <label>Size</label>
-                    <div class="size-chips">
-                        <button class="s-chip">S</button>
-                        <button class="s-chip active">M</button>
-                        <button class="s-chip">L</button>
-                        <button class="s-chip">XL</button>
-                    </div>
-                </div>
-            </div>
+        <label class="select-label">Choose Color</label>
+
+        <select name="color" class="form-control custom-select">
+            <option value="" disabled selected>Select Color</option>
+            {% for i in single_product.variation_set.colors %}
+            <option value="{{ i.variation_value | lower }}">
+                {{ i.variation_value | capfirst }}
+            </option>
+            {% endfor %}
+        </select>
+
+    </div>
+</div>
+<br>
+   <!-- <br>
+
+    <div class="row">
+    <div class="item-option-select">
+        
+        <select name="color" class="form-control" required>
+            <option value="" disabled selected>Select</option>
+            {% for i in single_product.variation_set.colors %}
+            <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    </div>
+    <br> -->
+
+    <!-- 📏 SIZES -->
+    <div class="option-group">
+    <div class="size-options">
+
+        {% for i in single_product.variation_set.sizes %}
+        
+        <input 
+            type="radio"
+            id="size_{{ forloop.counter }}"
+            name="size"
+            value="{{ i.variation_value|lower }}"
+            hidden
+            required
+        >
+
+        <label for="size_{{ forloop.counter }}">
+            {{ i.variation_value }}
+        </label>
+
+        {% endfor %}
+
+    </div>
+</div>
+
+    <!-- 🛒 BUTTON -->
+    
+
 
             <!-- Actions -->
             <div class="action-grid">
-                <div class="qty-picker">
-                    <button onclick="qtyUpdate(-1)">-</button>
-                    <input type="text" id="product-qty" value="1" readonly>
-                    <button onclick="qtyUpdate(1)">+</button>
-                </div> 
+                
                 {% if single_product.stock <= 0 %} <br>
                 <h2 class="ofs"> Out of stock</h3> 
                 {% else %}
-                     {% if in_cart %}
-                     <a href="#" class="atc">
-                    <button class="buy-now-btn">Added to Cart</button> </a>
-                    <a href="{% url 'cart' %}" class="atc">
-                    <button class="buy-now-btn">View Cart</button> </a>
-
-
-                {% else %}     
-                <a href="{% url 'add_cart' single_product.id %}" class="atc">
-                    <button class="buy-now-btn">Add To Cart</button> </a>
+                     <button type="submit" class="add-cart-btn">Add to Cart</button>
                 {% endif %}
-                {% endif %}
+                
             </div>
-        </div>
+        </div> </form>
     </div>
 
     <!-- Review Section -->
@@ -92,7 +125,7 @@
             <textarea placeholder="Tell us what you think..."></textarea>
             <button class="submit-review">Submit Review</button>
         </div>
-    </section>
+    </section> </form>
 </div>
 
 <style>
@@ -179,6 +212,177 @@
         .action-grid { flex-direction: column; }
         .main-img-box { box-shadow: 8px 8px 0px var(--yellow); }
     }
+
+
+.frost-options {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+    max-width: 400px;
+    font-family: 'Inter', sans-serif;
+}
+
+.frost-options h3 {
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.label {
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* COLOR OPTIONS */
+.color-options {
+    display: flex;
+    gap: 10px;
+}
+
+.color-box {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.color-box:hover {
+    transform: scale(1.1);
+}
+
+
+/* Selected state */
+input:checked + .color-box {
+    border: 3px solid #FFD700;
+    transform: scale(1.15);
+}
+
+
+
+.aatc{padding-top: 30px;}
+
+/* SIZE OPTIONS */
+.size-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.size-options label {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.size-options label:hover {
+    background: #f5f5f5;
+}
+
+/* Wrapper */
+.frost-select {
+    position: relative;
+    max-width: 300px;
+}
+
+/* Label */
+.select-label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: #666;
+    font-weight: 600;
+}
+
+/* Select box */
+.custom-select {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
+    font-size: 0.9rem;
+    font-weight: 600;
+    appearance: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+.custom-select:hover {
+    background: #fff;
+}
+
+/* Focus (🔥 Frost highlight) */
+.custom-select:focus {
+    outline: none;
+    border-color: #FFD700;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+/* Custom arrow */
+.frost-select::after {
+    content: "⌄";
+    position: absolute;
+    right: 15px;
+    top: 38px;
+    font-size: 14px;
+    color: #888;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+/* Arrow animation */
+.custom-select:focus + .frost-select::after {
+    transform: rotate(180deg);
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .frost-select {
+        max-width: 100%;
+    }
+}
+/* Selected size */
+input:checked + label {
+    background: #FFD700;
+    color: black;
+    border: none;
+    transform: scale(1.05);
+}
+
+/* BUTTON */
+.add-cart-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    background: #FFD700;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-cart-btn:hover {
+    background: #e6c200;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+    .frost-options {
+        max-width: 100%;
+    }
+}
+
 </style>
 
 <script>

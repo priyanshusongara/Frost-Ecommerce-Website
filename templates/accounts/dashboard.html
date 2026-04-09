@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FROST Dashboard</title>
+
+<style>
+:root {
+    --frost-yellow: #FFD700;
+    --frost-dark: #1a1a1a;
+    --frost-light: #f4f4f4;
+    --transition: all 0.4s ease;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--frost-light);
+}
+
+/* Layout */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background: white;
+    border-right: 3px solid var(--frost-dark);
+    padding: 20px;
+    animation: slideIn 0.6s ease;
+}
+
+.sidebar h3 {
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.menu-item:hover {
+    background: var(--frost-yellow);
+    transform: translateX(5px);
+}
+
+.active {
+    background: var(--frost-dark);
+    color: white;
+}
+
+.logout {
+    margin-top: 40px;
+    padding: 12px;
+    text-align: center;
+    border: 2px solid var(--frost-dark);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.logout:hover {
+    background: var(--frost-dark);
+    color: white;
+}
+
+/* Main Content */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* Order Card */
+.order-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    animation: fadeUp 0.6s ease;
+}
+
+/* Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.order-header strong {
+    font-size: 1.1rem;
+}
+
+/* Sections */
+.section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.section div {
+    max-width: 48%;
+}
+
+/* Product List */
+.product {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.product:hover {
+    background: #fafafa;
+    transform: scale(1.01);
+}
+
+.product img {
+    width: 60px;
+    height: 60px;
+    background: #ddd;
+    margin-right: 15px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-actions button {
+    margin-left: 10px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.track-btn {
+    background: var(--frost-yellow);
+}
+
+.track-btn:hover {
+    transform: translateY(-2px);
+}
+
+.details-btn {
+    background: #eee;
+}
+
+.details-btn:hover {
+    background: var(--frost-dark);
+    color: white;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from { transform: translateX(-100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>FROST</h3>
+        <div class="menu-item active">My order history</div>
+        <div class="menu-item">Transactions</div>
+        <div class="menu-item">Return and refunds</div>
+        <div class="menu-item">Settings</div>
+        <div class="menu-item">My Selling Items</div>
+        <div class="menu-item">Received orders</div>
+
+        <div class="logout"><a href="{% url 'logout' %}">Log out</a></div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+
+        <div class="order-card">
+
+            <!-- Header -->
+            <div class="order-header">
+                <div><strong>Order ID: 6123456789</strong></div>
+                <div>Order Date: 16 December 2018</div>
+            </div>
+
+            <!-- Info -->
+            <div class="section">
+                <div>
+                    <strong>Delivery to</strong><br>
+                    Michael Jackson<br>
+                    Phone +1234567890<br>
+                    Email: example@email.com<br>
+                    Address: Street 123, City
+                </div>
+
+                <div>
+                    <strong>Payment</strong><br>
+                    Visa **** 4216<br>
+                    Subtotal: $356<br>
+                    Shipping: $56<br>
+                    <strong>Total: $456</strong>
+                </div>
+            </div>
+
+            <!-- Products -->
+            <div class="product">
+                <img>
+                <div class="product-info">
+                    <strong>Frost Jacket Pro</strong><br>
+                    $145
+                </div>
+                <div class="product-actions">
+                    <button class="track-btn">Track</button>
+                    <button class="details-btn">Details</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <img>
+                <div class="product-info">
+                    <strong>Outdoor Gloves</strong><br>
+                    $15
+                </div>
+                <div class="product-actions">
+                    <button class="track-btn">Track</button>
+                    <button class="details-btn">Details</button>
+                </div>
+            </div>
+
+            <div class="product">
+                <img>
+                <div class="product-info">
+                    <strong>Frost Backpack</strong><br>
+                    $145
+                </div>
+                <div class="product-actions">
+                    <button class="track-btn">Track</button>
+                    <button class="details-btn">Details</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+<style> 
+
+    a {
+    text-decoration: none;
+    color: inherit;
+}
+</style>
+
+    
+</html>
+
+{% endblock %}

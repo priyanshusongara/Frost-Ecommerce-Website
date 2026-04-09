@@ -32,7 +32,14 @@
                 <div class="cart-info">
                     <a class="name123" href="{{ cart_item.product.get_url }}">
                     <h4 >{{cart_item.product.product_name }}</h4> </a>
+                    
                     <p class="price">${{ cart_item.product.price }} per item</p>
+                    <p class="text-muted small">
+                        {% if cart_item.variations.all %}
+                            {% for item in cart_item.variations.all %}
+                            {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst}}
+                            {% endfor %}
+                                {% endif %} </p>
 
                     <!-- Quantity -->
                     <div class="qty-box">
@@ -64,7 +71,7 @@
 
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span>${{ total }}</span>
+                <span>${{ total}}</span>
             </div>
 
             <div class="summary-row">

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- templates/accounts/register.html -->
+
+<form action="{% url 'register' %}" method="POST" class="frost-auth">
+    {% csrf_token %}
+    
+    <h2>Create Account</h2>
+     {% include 'alerts.html' %} 
+    <br>
+    {{ form.first_name }}
+    {{ form.last_name }}
+    {{ form.email }}
+    {{ form.phone_number }}
+    {{ form.password }}
+    {{ form.confirm_password }}
+    
+    
+    <button type="submit">Register</button>
+    
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+    {{ form.email.errors }}
+    {{ form.non_field_errors }}
+
+</form>
+
+
+<style>
+.frost-auth {
+    max-width: 350px;
+    margin: 80px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.frost-auth h2 {
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+.frost-auth input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.frost-auth input:focus {
+    outline: none;
+    border-color: #FFD700;
+    box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
+}
+
+.frost-auth button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 30px;
+    background: #FFD700;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.frost-auth button:hover {
+    transform: translateY(-2px);
+}
+
+.frost-auth p {
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+.frost-auth a {
+    color: black;
+    font-weight: 700;
+}
+
+
+
+</style>
+{% endblock %}

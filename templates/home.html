@@ -153,19 +153,28 @@
             </div>
             <span style="font-weight:900; text-transform:uppercase; font-size:1.5rem;" class="nav-hide">Frost</span>
         </a>
-
+        <form action="{% url 'search' %}" class="search-container" METHOD='GET'>   
         <div class="search-container">
-            <form action="{% url 'search' %}" class="search" METHOD='GET'>
-            <input type="text" class="search-bar" name="keyword" placeholder="Search Frost Outdoor Essentials..."> 
+            
+            <input type="search" class="search-bar" name="keyword" placeholder="Search Frost Outdoor Essentials..."> 
             <!-- Icon is now on the RIGHT -->
             <div class="search-icon-right">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div></form>
-        </div>
+            </div>
+        </div> </form>
 
         <nav class="nav-right">
             <a href="{% url 'store' %}" class="nav-link nav-hide">Store</a>
-            <a href="#" class="nav-link nav-hide">Login / Register</a>
+            {% if user.id is None %}
+            <a href="{% url 'login'%}" class="nav-link nav-hide">Login</a>
+            <a href="{% url 'register' %}" class="nav-link nav-hide">Register</a>
+
+            {% else %}
+            <p> Hello,{{user.first_name}} ! </p>
+            <a href="{% url 'dashboard' %}" class="nav-link nav-hide"> Account</a>
+            <a href="{% url 'logout' %}" class="nav-link nav-hide">Logout</a>
+
+            {% endif %}
             <a href="{% url 'cart' %}" class="cart-btn nav-link">Cart {{ cart_count }}</a>
         </nav>
     </header>

@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'category', 'accounts', 'store','carts',
+    
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'frost.urls'
@@ -103,6 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
@@ -125,3 +130,16 @@ STAATICFILES_DIRS= ['frost/static',]
 
 MEDIA_URL = '/media/'
 STATIS_ROOT= BASE_DIR/ 'media'
+
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+messages.ERROR: 'danger',
+}
+
+# SMTP configuration
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'priyanshusongara23@gmail.com'
+EMAIL_HOST_PASSWORD = 'yuvoodnyaxhkuakb'
+EMAIL_USE_TLS = True
