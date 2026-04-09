@@ -1,0 +1,250 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="checkout-container">
+
+    <!-- LEFT: BILLING FORM -->
+    <div class="checkout-left">
+        <h2>Billing Address</h2>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+
+            <div class="form-row">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+            </div>
+
+            <div class="form-row">
+                <input type="text" name="address1" placeholder="Address Line 1" required>
+                <input type="text" name="address2" placeholder="Address Line 2">
+            </div>
+
+            <div class="form-row">
+                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="state" placeholder="State" required>
+                <input type="text" name="country" placeholder="Country" required>
+            </div>
+
+            <textarea name="note" placeholder="Order Note"></textarea>
+
+    </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="checkout-right">
+
+        <div class="order-box">
+
+            {% for cart_item in cart_items %}
+            <div class="order-item">
+
+                <img src="{{ cart_item.product.images.url }}">
+
+                <div class="order-info">
+                    <h4>{{ cart_item.product.product_name }}</h4>
+                    <p>
+                        {% for item in cart_item.variations.all %}
+                        {{ item.variation_category }}: {{ item.variation_value }}
+                        {% endfor %}
+                    </p>
+                </div>
+
+                <div class="order-qty">
+                    {{ cart_item.quantity }}
+                </div>
+
+                <div class="order-price">
+                    ${{ cart_item.sub_total }}
+                </div>
+
+            </div>
+            {% endfor %}
+
+            <!-- TOTAL -->
+            <div class="order-total">
+                <p>Subtotal <span>${{ total }}</span></p>
+                <p>Tax (2%) <span>${{ tax }}</span></p>
+                <h3>Total <span>${{ grand_total }}</span></h3>
+            </div>
+
+            <button type="submit" class="place-btn" name="submit">
+                Place Order
+            </button>
+
+            <a href="{% url 'store' %}" class="continue-btn">
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</form>
+
+<style>
+
+/* 🌐 LAYOUT */
+.checkout-container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+/* LEFT FORM */
+.checkout-left {
+    flex: 1;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.checkout-left h2 {
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+
+/* INPUTS */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row input {
+    flex: 1;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+input:focus, textarea:focus {
+    border-color: #FFD700;
+    box-shadow: 0 0 10px rgba(255,215,0,0.2);
+    outline: none;
+}
+
+textarea {
+    margin-top: 10px;
+    height: 100px;
+}
+
+/* RIGHT */
+.checkout-right {
+    flex: 1;
+}
+
+/* ORDER BOX */
+.order-box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+/* ITEM */
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.order-item img {
+    width: 50px;
+    border-radius: 8px;
+}
+
+.order-info {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.order-info h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.order-info p {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.order-qty {
+    font-weight: bold;
+}
+
+.order-price {
+    font-weight: 700;
+}
+
+/* TOTAL */
+.order-total {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.order-total p,
+.order-total h3 {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* BUTTON */
+.place-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    border: none;
+    border-radius: 30px;
+    background: linear-gradient(135deg, #FFD700, #ffcc00);
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.place-btn:hover {
+    transform: scale(1.03);
+}
+
+/* CONTINUE */
+.continue-btn {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+    .checkout-container {
+        flex-direction: column;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+</style>
+
+{% endblock %}

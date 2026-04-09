@@ -42,10 +42,8 @@
                                 {% endif %} </p>
 
                     <!-- Quantity -->
-                    <div class="qty-box">
-                        <a href="{% url 'remove_cart' cart_item.product.id %}" class="qty-btn">-</a>
-                        <span>{{ cart_item.quantity }}</span>
-                        <a href="{% url 'add_cart' cart_item.product.id %}" class="qty-btn">+</a>
+                    <div class="qty-box"> Quantity {{cart_item.quantity}}
+
                     </div>
                 </div>
 
@@ -54,10 +52,7 @@
                     ${{ cart_item.sub_total }}
                 </div> <br>
 
-                <!-- Remove -->
-                <div class="cart-remove">
-                    <a href="{% url 'remove_cart_item' cart_item.product.id %}">Remove</a>
-                </div>
+                
 
             </div>
            
@@ -84,7 +79,7 @@
                 <span>${{ grand_total }}</span>
             </div>
 
-            <a href="" class="checkout-btn">
+            <a href="{% url 'checkout' %}" class="checkout-btn">
                 Proceed to Checkout
             </a>
 
