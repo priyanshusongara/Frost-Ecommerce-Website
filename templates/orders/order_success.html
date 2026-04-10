@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+:root {
+    --frost-yellow: #FFD700;
+    --frost-dark: #0f172a;
+    --frost-light: #f8fafc;
+}
+
+/* Container */
+.success-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Card */
+.success-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Success Icon */
+.success-icon {
+    font-size: 60px;
+    color: var(--frost-yellow);
+    margin-bottom: 10px;
+    animation: pop 0.5s ease;
+}
+
+/* Title */
+.success-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Subtitle */
+.success-subtitle {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Order Info */
+.order-info {
+    background: #f1f5f9;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.order-info p {
+    margin: 5px 0;
+}
+
+/* Product List */
+.product-list {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Button */
+.home-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: var(--frost-yellow);
+    color: black;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.home-btn:hover {
+    background: #e6c200;
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes pop {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .success-card {
+        padding: 20px;
+    }
+
+    .success-title {
+        font-size: 22px;
+    }
+}
+</style>
+
+<div class="success-container">
+    <div class="success-card">
+
+        <div class="success-icon">✔</div>
+
+        <div class="success-title">Order Placed Successfully</div>
+        <div class="success-subtitle">
+            Thank you for shopping with FROST
+        </div>
+
+        <div class="order-info">
+            <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+            <p><strong>Total Amount:</strong> ₹{{ order.order_total }}</p>
+        </div>
+
+        <div class="product-list">
+            <h4>Items Ordered:</h4>
+            {% for item in ordered_products %}
+            <div class="product-item">
+                <span>{{ item.product.product_name }}</span>
+                <span>x{{ item.quantity }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="home-btn">Continue Shopping</a>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -34,15 +34,15 @@
                     <h4 >{{cart_item.product.product_name }}</h4> </a>
                     
                     <p class="price">${{ cart_item.product.price }} per item</p>
-                    <p class="text-muted small">
-                        {% if cart_item.variations.all %}
-                            {% for item in cart_item.variations.all %}
-                            {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst}}
-                            {% endfor %}
-                                {% endif %} </p>
-
+                    
+                    
                     <!-- Quantity -->
-                    <div class="qty-box"> Quantity {{cart_item.quantity}}
+                    
+                        <div class="qty-box">
+                        <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}" class="qty-btn">-</a>
+                        <span>{{ cart_item.quantity }}</span>
+                        <a href="{% url 'add_cart' cart_item.product.id %}" class="qty-btn">+</a>
+                   
 
                     </div>
                 </div>
@@ -51,6 +51,9 @@
                 <div class="cart-total">
                     ${{ cart_item.sub_total }}
                 </div> <br>
+                <div class="cart-remove">
+                    <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}">Remove</a>
+                </div>
 
                 
 

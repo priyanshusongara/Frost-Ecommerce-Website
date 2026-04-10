@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+:root {
+    --frost-yellow: #FFD700;
+    --frost-dark: #0f172a;
+    --frost-light: #f8fafc;
+}
+
+/* Container */
+.order-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card */
+.order-card {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Title */
+.order-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Info */
+.order-info p {
+    margin: 5px 0;
+}
+
+/* Status badge */
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.status-New { background: #fef3c7; color: #92400e; }
+.status-Processing { background: #e0f2fe; color: #0369a1; }
+.status-Shipped { background: #ddd6fe; color: #5b21b6; }
+.status-Delivered { background: #d1fae5; color: #065f46; }
+.status-Cancelled { background: #fee2e2; color: #991b1b; }
+
+/* Tracker */
+.tracker {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+    position: relative;
+}
+
+.tracker::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 5%;
+    width: 90%;
+    height: 4px;
+    background: #ddd;
+    z-index: 0;
+}
+
+.step {
+    text-align: center;
+    z-index: 1;
+    flex: 1;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #ddd;
+    margin: auto;
+    transition: 0.3s;
+}
+
+.circle.active {
+    background: var(--frost-yellow);
+    transform: scale(1.1);
+}
+
+.step p {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Product list */
+.product-list {
+    margin-top: 20px;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Button */
+.back-btn {
+    display: inline-block;
+    margin-top: 20px;
+    background: var(--frost-yellow);
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+    background: #e6c200;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .order-card {
+        padding: 15px;
+    }
+
+    .tracker {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .tracker::before {
+        display: none;
+    }
+}
+</style>
+
+<div class="order-container">
+    <div class="order-card">
+
+        <div class="order-title">Order Details</div>
+
+        <div class="order-info">
+            <p><strong>Order ID:</strong> {{ order.order_number }}</p>
+            <p><strong>Total:</strong> ₹{{ order.order_total }}</p>
+            <p><strong>Status:</strong> 
+                <span class="status-badge status-{{ order.status }}">
+                    {{ order.status }}
+                </span>
+            </p>
+        </div>
+
+        <!-- Tracker -->
+        <div class="tracker">
+
+            <div class="step">
+                <div class="circle {% if order.status != 'Cancelled' %}active{% endif %}"></div>
+                <p>Placed</p>
+            </div>
+
+            <div class="step">
+                <div class="circle {% if order.status == 'Processing' or order.status == 'Shipped' or order.status == 'Delivered' %}active{% endif %}"></div>
+                <p>Processing</p>
+            </div>
+
+            <div class="step">
+                <div class="circle {% if order.status == 'Shipped' or order.status == 'Delivered' %}active{% endif %}"></div>
+                <p>Shipped</p>
+            </div>
+
+            <div class="step">
+                <div class="circle {% if order.status == 'Delivered' %}active{% endif %}"></div>
+                <p>Delivered</p>
+            </div>
+
+        </div>
+
+        <!-- Products -->
+        <div class="product-list">
+            <h4>Items</h4>
+            {% for item in ordered_products %}
+            <div class="product-item">
+                <span>{{ item.product.product_name }}</span>
+                <span>x{{ item.quantity }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="{% url 'my_orders' %}" class="back-btn">← Back to Orders</a>
+
+    </div>
+</div>
+
+{% endblock %}

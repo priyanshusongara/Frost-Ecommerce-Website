@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'category', 'accounts', 'store','carts',
+    'orders',
     
 ]
 
@@ -123,6 +124,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+
+
+import os
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
 STATIC_URL = '/static/'
 STATIS_ROOT= BASE_DIR/ 'static'
 STAATICFILES_DIRS= ['frost/static',]
@@ -143,3 +151,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'priyanshusongara23@gmail.com'
 EMAIL_HOST_PASSWORD = 'yuvoodnyaxhkuakb'
 EMAIL_USE_TLS = True
+
+
+
+#razorpay
+RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
+RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"

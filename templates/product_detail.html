@@ -36,7 +36,7 @@
 <div class="row">
     <div class="item-option-select frost-select">
 
-        <label class="select-label">Choose Color</label>
+        <label class="select-label">*Choose Color & Sizes</label>
 
         <select name="color" class="form-control custom-select">
             <option value="" disabled selected>Select Color</option>
@@ -107,25 +107,43 @@
     </div>
 
     <!-- Review Section -->
-    <section class="reviews-section">
-        <h2 class="section-title">Customer Feedback</h2>
-        
-        <!-- Individual Review -->
-        <div class="review-card">
-            <div class="review-header">
-                <span class="reviewer-name">Alex M.</span>
-                <span class="review-stars">★★★★★</span>
-            </div>
-            <p class="review-text">Best hoodie I've ever owned. The yellow accents are super bright and the fit is perfect.</p>
-        </div>
+    <form action="{% url 'submit_review' single_product.id %}" method="POST">
+    {% csrf_token %}
 
-        <!-- Review Input -->
-        <div class="add-review-box">
-            <h3>Leave a Review</h3>
-            <textarea placeholder="Tell us what you think..."></textarea>
-            <button class="submit-review">Submit Review</button>
-        </div>
-    </section> </form>
+    <h4>Write Your Review</h4>
+
+    <input type="text" name="subject" placeholder="Subject" required>
+
+    <textarea name="review" placeholder="Your review..." required></textarea>
+
+    <select name="rating" required>
+        <option value="">Rating</option>
+        <option value="1">1 ⭐</option>
+        <option value="2">2 ⭐</option>
+        <option value="3">3 ⭐</option>
+        <option value="4">4 ⭐</option>
+        <option value="5">5 ⭐</option>
+    </select>
+
+    <button type="submit">Submit Review</button>
+</form>
+
+<h4>Customer Reviews</h4>
+
+{% for review in reviews %}
+<div>
+    <strong>{{ review.user.full_name }}</strong>
+    <p>Rating: {{ review.rating }} ⭐</p>
+    <p>{{ review.review }}</p>
+</div>
+{% endfor %}
+
+{% if orderproduct %}
+    <!-- show review form -->
+{% else %}
+    <p>You must purchase this product to leave a review.</p>
+{% endif %}
+
 </div>
 
 <style>
@@ -382,6 +400,217 @@ input:checked + label {
         max-width: 100%;
     }
 }
+
+/* ===== FROST UI ENHANCEMENT ===== */
+
+/* Smooth page load */
+.frost-product-container {
+    animation: pageFade 0.6s ease-in-out;
+}
+
+@keyframes pageFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Product card hover feel */
+.product-main {
+    transition: 0.3s ease;
+}
+
+/* Image hover zoom + glow */
+.main-img-box img {
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.main-img-box:hover img {
+    transform: scale(1.08);
+    filter: brightness(1.05);
+}
+
+/* Tag animation */
+.frost-tag {
+    animation: tagPop 0.5s ease;
+}
+
+@keyframes tagPop {
+    from { transform: scale(0) rotate(-10deg); }
+    to { transform: scale(1) rotate(-2deg); }
+}
+
+/* Product info animation */
+.product-info-panel {
+    animation: slideInRight 0.6s ease;
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Price highlight */
+.current-price {
+    color: var(--yellow);
+    text-shadow: 1px 1px 0px var(--black);
+}
+
+/* Add to cart button premium effect */
+.add-cart-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.add-cart-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transition: 0.5s;
+}
+
+.add-cart-btn:hover::after {
+    left: 100%;
+}
+
+/* Size hover glow */
+.size-options label:hover {
+    border-color: var(--yellow);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* Selected size stronger */
+input:checked + label {
+    background: var(--yellow);
+    color: black;
+    transform: scale(1.08);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+}
+
+/* Select dropdown animation */
+.custom-select {
+    transition: all 0.3s ease, transform 0.2s;
+}
+
+.custom-select:focus {
+    transform: scale(1.02);
+}
+
+/* Review section styling */
+h4 {
+    margin-top: 40px;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-left: 5px solid var(--yellow);
+    padding-left: 10px;
+}
+
+/* Review cards improved */
+.review-card {
+    transition: 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 0px var(--yellow);
+}
+
+/* Review form styling */
+form input,
+form textarea,
+form select {
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+/* Submit review button */
+form button {
+    margin-top: 15px;
+    background: var(--black);
+    color: white;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: var(--yellow);
+    color: black;
+    transform: scale(1.05);
+}
+
+/* MOBILE PERFECT SPACING */
+@media (max-width: 768px) {
+
+    .frost-product-container {
+        padding: 10px;
+    }
+
+    .product-main {
+        gap: 25px;
+    }
+
+    .product-name {
+        font-size: 1.8rem;
+    }
+
+    .current-price {
+        font-size: 1.5rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .frost-options {
+        padding: 15px;
+    }
+
+    .size-options {
+        flex-wrap: wrap;
+    }
+
+    .add-cart-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .main-img-box {
+        box-shadow: 6px 6px 0px var(--yellow);
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 480px) {
+    .product-name {
+        font-size: 1.5rem;
+    }
+
+    .price-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .rating-stars {
+        font-size: 0.9rem;
+    }
+}
+
 
 </style>
 

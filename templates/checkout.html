@@ -3,13 +3,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+ <form action="{% url 'place_order' %}" method="POST">
 <div class="checkout-container">
 
     <!-- LEFT: BILLING FORM -->
     <div class="checkout-left">
         <h2>Billing Address</h2>
 
-        <form action="" method="POST">
+       
             {% csrf_token %}
 
             <div class="form-row">
@@ -23,8 +24,9 @@
             </div>
 
             <div class="form-row">
-                <input type="text" name="address1" placeholder="Address Line 1" required>
-                <input type="text" name="address2" placeholder="Address Line 2">
+                <input type="text" name="address_line_1" placeholder="Address Line 1" required>
+                <input type="text" name="address_line_2" placeholder="Address Line 2">
+
             </div>
 
             <div class="form-row">
@@ -33,7 +35,7 @@
                 <input type="text" name="country" placeholder="Country" required>
             </div>
 
-            <textarea name="note" placeholder="Order Note"></textarea>
+           <textarea name="order_note" placeholder="Order Note"></textarea>
 
     </div>
 
@@ -49,27 +51,23 @@
 
                 <div class="order-info">
                     <h4>{{ cart_item.product.product_name }}</h4>
-                    <p>
-                        {% for item in cart_item.variations.all %}
-                        {{ item.variation_category }}: {{ item.variation_value }}
-                        {% endfor %}
-                    </p>
+                   
                 </div>
 
                 <div class="order-qty">
-                    {{ cart_item.quantity }}
-                </div>
+                    {{ cart_item.quantity }} Quantity
+                </div> 
 
-                <div class="order-price">
+             <!--   <div class="order-price">
                     ${{ cart_item.sub_total }}
-                </div>
+                </div> -->
 
             </div>
             {% endfor %}
 
             <!-- TOTAL -->
             <div class="order-total">
-                <p>Subtotal <span>${{ total }}</span></p>
+                <p>Subtotal <span>${{ total}}</span></p>
                 <p>Tax (2%) <span>${{ tax }}</span></p>
                 <h3>Total <span>${{ grand_total }}</span></h3>
             </div>
@@ -87,8 +85,8 @@
     </div>
 
 </div>
-
 </form>
+
 
 <style>
 

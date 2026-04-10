@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FROST</title>
     <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
     <style>
         :root {
             --frost-yellow: #FFD700;
@@ -33,11 +35,20 @@
 
         .logo-area { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
         .logo-box {
-            width: 44px; height: 44px; background: var(--frost-yellow);
-            transform: rotate(-10deg); border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            transition: var(--transition);
-        }
+    width: 44px;
+    height: 44px;
+    background: transparent;  
+    transform: rotate(-10deg);          
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
         .logo-box:hover { transform: rotate(0deg) scale(1.1); }
         .logo-box svg { transform: rotate(10deg); width: 26px; }
 
@@ -128,6 +139,12 @@
         .dev-credit { padding-top: 20px; border-top: 1px solid #333; font-size: 0.9rem; }
         .dev-name { color: var(--frost-yellow); font-weight: 900; text-transform: uppercase; }
 
+        .logo-box img {
+             width: 100%;
+             height: 100%;
+             object-fit: contain;
+             transform: rotate(10deg);
+              }
         /* ANIMATION KEYFRAMES */
         @keyframes zoomIn { from { transform: scale(1); } to { transform: scale(1.1); } }
         @keyframes slideUpFade { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -139,6 +156,79 @@
             .search-bar:focus { width: 200px; }
         }
 
+        /* MOBILE HERO FIX */
+@media (max-width: 768px) {
+
+    .slideshow {
+        height: 50vh;
+    }
+
+    .slide-content h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .search-container {
+        order: 3;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+
+    .nav-right {
+        gap: 10px;
+    }
+
+    .cart-btn {
+        padding: 8px 14px;
+        font-size: 0.75rem;
+    }
+}
+
+.slide-overlay {
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.2),
+        rgba(0,0,0,0.6)
+    );
+}
+
+.slideshow {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Mobile fix */
+@media (max-width: 768px) {
+    .slideshow {
+        height: 50vh;
+    }
+}
         
     </style>
 </head>
@@ -149,7 +239,7 @@
     <header>
         <a href="{% url 'home' %}" class="logo-area">
             <div class="logo-box">
-                <svg viewBox="0 0 24 24" fill="black"><path d="M12.76 3.76L15.35 6.35L19.11 5.25L22 8.14L18.66 11.47V21H5.34V11.47L2 8.14L4.89 5.25L8.65 6.35L11.24 3.76C11.63 3.37 12.37 3.37 12.76 3.76Z""")/>></svg>
+              <img src="{% static 'images/logo.png' %}" alt="FROST">
             </div>
             <span style="font-weight:900; text-transform:uppercase; font-size:1.5rem;" class="nav-hide">Frost</span>
         </a>
@@ -171,7 +261,7 @@
 
             {% else %}
             <p> Hello,{{user.first_name}} ! </p>
-            <a href="{% url 'dashboard' %}" class="nav-link nav-hide"> Account</a>
+            <a href="{% url 'my_orders' %}" class="nav-link nav-hide"> Account</a>
             <a href="{% url 'logout' %}" class="nav-link nav-hide">Logout</a>
 
             {% endif %}
@@ -179,16 +269,10 @@
         </nav>
     </header>
 
-    <section class="slideshow">
-        <div class="slide active" style="background-image: url('https://unsplash.com');">
-            <div class="slide-overlay"></div>
-            <div class="slide-content"><h1>FREEDOM TO<br><span>EXPLORE.</span></h1></div>
-        </div>
-        <div class="slide" style="background-image: url('https://unsplash.com');">
-            <div class="slide-overlay"></div>
-            <div class="slide-content"><h1>LAYERS OF<br><span>ADVENTURE.</span></h1></div>
-        </div>
-    </section>
+    <a href="{% url 'store' %}"><section class="slideshow">
+    <img src="{% static 'images/one.png' %}" class="slide active">
+    <img src="{% static 'images/two.png' %}" class="slide">
+</section> </a>
 
     <div class="brand-header">
         <h2>THE LATEST STYLES</h2>
@@ -256,4 +340,15 @@
 }</style>    
 
 </body>
+<script>
+let slides = document.querySelectorAll('.slide');
+let currentSlide = 0;
+
+setInterval(() => {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+}, 4000);  
+</script>
+
 </html>

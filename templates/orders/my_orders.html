@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+.dashboard {
+    padding: 30px;
+}
+
+.dashboard h2 {
+    margin-bottom: 20px;
+}
+
+.order-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.order-card:hover {
+    transform: translateY(-3px);
+}
+
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.Completed { background: #d1fae5; color: #065f46; }
+.status.New { background: #fef3c7; color: #92400e; }
+.status.Cancelled { background: #fee2e2; color: #991b1b; }
+
+.view-btn {
+    background: #FFD700;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+</style>
+
+<div class="dashboard">
+    <h2>My Orders</h2>
+
+    {% for order in orders %}
+    <div class="order-card">
+        <p><strong>Order:</strong> {{ order.order_number }}</p>
+        <p><strong>Total:</strong> ₹{{ order.order_total }}</p>
+        <p><strong>Date:</strong> {{ order.created_at }}</p>
+
+        <span class="status {{ order.status }}">{{ order.status }}</span>
+
+        <br><br>
+        <a href="{% url 'order_detail' order.order_number %}" class="view-btn">
+            View Details
+        </a>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

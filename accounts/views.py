@@ -71,11 +71,9 @@ def register(request):
 
 
 def login(request):
-    
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
         user = auth.authenticate(email=email, password=password)
        
 
@@ -87,6 +85,7 @@ def login(request):
                     cart_item = CartItem.objects.filter(cart=cart)
                     for item in cart_item:
                         item.user = user
+                        item.cart = None 
                         item.save()
             except:
                 pass

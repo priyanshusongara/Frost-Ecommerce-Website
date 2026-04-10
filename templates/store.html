@@ -84,6 +84,34 @@
             {% endif %}
         </nav> -->
 
+        <nav class="mt-4">
+    {% if products.has_other_pages %}
+    <ul class="pagination">
+
+        {% if products.has_previous %}
+        <li><a href="?page={{ products.previous_page_number }}">Previous</a></li>
+        {% else %}
+        <li class="disabled">Previous</li>
+        {% endif %}
+
+        {% for i in products.paginator.page_range %}
+            {% if products.number == i %}
+                <li class="active">{{ i }}</li>
+            {% else %}
+                <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+        <li><a href="?page={{ products.next_page_number }}">Next</a></li>
+        {% else %}
+        <li class="disabled">Next</li>
+        {% endif %}
+
+    </ul>
+    {% endif %}
+</nav>
+
 </div>
 
 
@@ -190,6 +218,79 @@
         background: var(--black);
         color: var(--white);
     }
+
+    .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    list-style: none;
+}
+
+.pagination li {
+    padding: 8px 14px;
+    border: 2px solid var(--black);
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.pagination li a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+.pagination li:hover {
+    background: var(--yellow);
+}
+
+.pagination .active {
+    background: var(--black);
+    color: var(--white);
+}
+
+.pagination .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+
+.product-link,
+.product-link:visited,
+.product-link:hover,
+.product-link:active,
+.product-link:focus {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.product-link * {
+    color: inherit !important;
+}
+
+
+/* FIX: Center products when fewer items */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 300px));
+    justify-content: center; /* 🔥 KEY FIX */
+    gap: 30px;
+}
+
+/* Prevent card stretching */
+.product-card {
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
 </style>
 
 <script>
@@ -210,20 +311,8 @@ function redirectCategory(select) {
         window.location.href = select.value;
     }
 }
+
 </script>
-<style>.product-link,
-.product-link:visited,
-.product-link:hover,
-.product-link:active,
-.product-link:focus {
-    text-decoration: none !important;
-    color: inherit !important;
-}
 
-.product-link * {
-    color: inherit !important;
-}</style>    
-
-</style>
 {% endblock %}
 
