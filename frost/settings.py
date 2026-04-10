@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-epjp9k3!jh&+l4qt%o8t3m-)sl&dci-j+*pk(ty@j&-b00!sje'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
@@ -132,9 +133,13 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
-STATIS_ROOT= BASE_DIR/ 'static'
-STAATICFILES_DIRS= ['frost/static',]
 
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = '/media/'
 STATIS_ROOT= BASE_DIR/ 'media'
