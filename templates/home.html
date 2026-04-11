@@ -229,6 +229,138 @@
         height: 50vh;
     }
 }
+
+@media (max-width: 768px) {
+
+    header {
+        background: var(--frost-white);
+        border-bottom: 2px solid var(--frost-yellow);
+    }
+
+    .logo-area span {
+        color: var(--frost-dark);
+    }
+
+    .search-bar {
+        border: 2px solid var(--frost-yellow);
+        background: #fff;
+    }
+
+    .search-bar:focus {
+        box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
+    }
+}
+
+/* FROST MOBILE BOTTOM NAV */
+.mobile-bottom-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .mobile-bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--frost-dark);
+        border-top: 3px solid var(--frost-yellow);
+        display: flex;
+        justify-content: space-around;
+        padding: 12px 0;
+        z-index: 2000;
+    }
+
+    .mobile-bottom-nav a {
+        text-decoration: none;
+        color: var(--frost-white);
+        font-weight: 700;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: var(--transition);
+    }
+
+    .mobile-bottom-nav a:hover {
+        color: var(--frost-yellow);
+    }
+
+    body {
+        padding-bottom: 70px;
+    }
+}
+
+/* PREMIUM FROST SLIDESHOW */
+
+.slideshow {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: frostZoom 8s ease-in-out forwards;
+}
+
+.slide-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1),
+        rgba(0,0,0,0.55)
+    );
+}
+
+@keyframes frostZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.08); }
+}
+
+/* MOBILE HEIGHT */
+@media (max-width:768px){
+    .slideshow{
+        height: 50vh;
+    }
+}
+
+@media (max-width: 768px) {
+
+    header {
+        background: var(--frost-white);
+        border-bottom: 2px solid var(--frost-yellow);
+    }
+
+    .logo-area span {
+        color: var(--frost-dark);
+    }
+
+    .search-bar {
+        border: 2px solid var(--frost-yellow);
+        background: #fff;
+    }
+
+    .search-bar:focus {
+        box-shadow: 0 0 0 3px rgba(255,215,0,0.2);
+    }
+}
         
     </style>
 </head>
@@ -270,8 +402,24 @@
     </header>
 
     <a href="{% url 'store' %}"><section class="slideshow">
-    <img src="{% static 'images/one.png' %}" class="slide active">
-    <img src="{% static 'images/two.png' %}" class="slide">
+
+    <div class="slide active">
+        <picture>
+            <source media="(max-width:768px)" srcset="{% static 'images/one-mobile.png' %}">
+            <img src="{% static 'images/one.png' %}">
+        </picture>
+        <div class="slide-overlay"></div>
+    </div>
+
+    <div class="slide">
+        <picture>
+            <source media="(max-width:768px)" srcset="{% static 'images/two-mobile.png' %}">
+            <img src="{% static 'images/two.png' %}">
+        </picture>
+        <div class="slide-overlay"></div>
+    </div>
+
+</section>
 </section> </a>
 
     <div class="brand-header">
@@ -301,6 +449,19 @@
             Designed & Developed by <span class="dev-name">Priyanshu Songara</span>
         </div>
     </footer>
+
+    <!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav">
+    <a href="{% url 'store' %}">Store</a>
+
+    {% if user.id is None %}
+        <a href="{% url 'login' %}">Account</a>
+    {% else %}
+        <a href="{% url 'my_orders' %}">Account</a>
+    {% endif %}
+
+    <a href="{% url 'cart' %}">Cart</a>
+</div>
 
     <script>
         // Automatic Nature Slideshow
@@ -349,6 +510,18 @@ setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     slides[currentSlide].classList.add('active');
 }, 4000);  
+
+
+
+const slides = document.querySelectorAll(".slide");
+let index = 0;
+
+setInterval(() => {
+    slides[index].classList.remove("active");
+    index = (index + 1) % slides.length;
+    slides[index].classList.add("active");
+}, 5000);
+
 </script>
 
 </html>
