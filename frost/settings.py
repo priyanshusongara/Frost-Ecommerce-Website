@@ -143,18 +143,16 @@ USE_TZ = True
 
 
 import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
 ]
-
-
 
 
 
@@ -187,3 +185,5 @@ cloudinary.config(
     api_key='574553989435262',
     api_secret='YM5gQeRS9gRf2TQDhUitCFriW0g'
 )
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
