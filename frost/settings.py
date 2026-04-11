@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +30,7 @@ SECRET_KEY = 'django-insecure-epjp9k3!jh&+l4qt%o8t3m-)sl&dci-j+*pk(ty@j&-b00!sje
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = ['https://frost-996m.onrender.com/']
 
 
 # Application definition
@@ -36,14 +41,20 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage', 
     'django.contrib.staticfiles',
+    'cloudinary',
     'category', 'accounts', 'store','carts',
     'orders', 
-    'cloudinary',
-    'cloudinary_storage',
-    
 ]
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'du7ckl6bt',
+    'API_KEY': '574553989435262',
+    'API_SECRET': 'YM5gQeRS9gRf2TQDhUitCFriW0g'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 MIDDLEWARE = [
@@ -131,20 +142,13 @@ USE_TZ = True
 
 import os
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
+    os.path.join(BASE_DIR, 'static'),]
 STATIC_URL = '/static/'
-
-
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
 
 
 
@@ -168,14 +172,12 @@ RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
 RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
 
 
+
+
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'du7ckl6bt',
-    'API_KEY': '574553989435262',
-    'API_SECRET': 'YM5gQeRS9gRf2TQDhUitCFriW0g',
-}
-
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+cloudinary.config(
+    cloud_name='du7ckl6bt',
+    api_key='574553989435262',
+    api_secret='YM5gQeRS9gRf2TQDhUitCFriW0g'
+)

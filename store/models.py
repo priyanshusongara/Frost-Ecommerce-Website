@@ -2,6 +2,7 @@ from django.db import models
 from category.models import Category
 
 from django.urls import reverse
+from cloudinary.models import CloudinaryField
 
 
 class Product(models.Model):
@@ -9,7 +10,8 @@ class Product(models.Model):
     slug = models.CharField(max_length=200, unique = True)
     description = models.CharField(max_length=100, unique = True)
     price = models.IntegerField(max_length=500, blank = True)
-    images =  models.ImageField(upload_to="photos/products")
+    images = CloudinaryField('image')
+    #images =  models.ImageField(upload_to="photos/products")
     stock= models.IntegerField()
     is_available=models.BooleanField(default=True)
     category= models.ForeignKey(Category, on_delete=models.CASCADE)
