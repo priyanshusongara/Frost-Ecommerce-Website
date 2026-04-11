@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
+from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -143,6 +143,7 @@ USE_TZ = True
 
 
 import os
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
