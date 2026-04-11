@@ -92,7 +92,7 @@ def login(request):
 
             auth.login(request, user)
             messages.success(request,'You are now logged in!')
-            return redirect('dashboard')
+            return redirect('my_orders')
         
         else:
             messages.error(request, 'Invalid login credentials')
