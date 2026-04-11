@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from pathlib import Path
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -143,15 +143,9 @@ USE_TZ = True
 
 
 import os
-from pathlib import Path
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-
-
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
@@ -174,12 +168,9 @@ RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
 
 
 
-import cloudinary
-
 cloudinary.config(
     cloud_name='du7ckl6bt',
     api_key='574553989435262',
     api_secret='YM5gQeRS9gRf2TQDhUitCFriW0g'
 )
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
