@@ -29,8 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'cloudinary',
-    'cloudinary_storage',
-
     'category',
     'accounts',
     'store',
@@ -47,11 +45,7 @@ cloudinary.config(
     api_secret='YM5gQeRS9gRf2TQDhUitCFriW0g'
 )
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'du7ckl6bt',
-    'API_KEY': '574553989435262',
-    'API_SECRET': 'YM5gQeRS9gRf2TQDhUitCFriW0g'
-}
+
 
 # =========================
 # MIDDLEWARE
@@ -115,7 +109,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # =========================
 # MEDIA FILES (CLOUDINARY)
 # =========================
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # =========================
 # OTHER SETTINGS
