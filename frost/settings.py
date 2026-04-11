@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 from pathlib import Path
 
 
@@ -42,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage', 
+    
     'django.contrib.staticfiles',
     'cloudinary',
     'category', 'accounts', 'store','carts',
@@ -157,23 +154,9 @@ RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
 RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
 
 
-
-import os
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-}
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-WHITENOISE_MANIFEST_STRICT = False
-# Fallbacks for older third-party packages
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+

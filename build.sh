@@ -2,14 +2,9 @@
 # exit on error
 set -o errexit
 
-# Install dependencies
 pip install -r requirements.txt
-
-# Run migrations
 python manage.py migrate
-
-# Collect Static Files
-# The --clear flag ensures a fresh start on the Render server
+python manage.py collectstatic --noinput --clear
 python manage.py collectstatic --noinput --clear
 python manage.py shell <<EOF
 from django.contrib.auth import get_user_model
