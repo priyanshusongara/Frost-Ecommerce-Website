@@ -55,9 +55,6 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'YM5gQeRS9gRf2TQDhUitCFriW0g'
 }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -142,12 +139,6 @@ USE_TZ = True
 
 
 
-import os
-
-
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
 messages.ERROR: 'danger',
@@ -161,17 +152,28 @@ EMAIL_HOST_PASSWORD = 'yuvoodnyaxhkuakb'
 EMAIL_USE_TLS = True
 
 
-
 #razorpay
 RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
 RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
 
 
 
+import os
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
 
-cloudinary.config(
-    cloud_name='du7ckl6bt',
-    api_key='574553989435262',
-    api_secret='YM5gQeRS9gRf2TQDhUitCFriW0g'
-)
-
+WHITENOISE_MANIFEST_STRICT = False
+# Fallbacks for older third-party packages
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
