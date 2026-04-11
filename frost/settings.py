@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'category', 'accounts', 'store','carts',
-    'orders',
+    'orders', 
+    'cloudinary',
+    'cloudinary_storage',
     
 ]
 
@@ -164,3 +166,16 @@ EMAIL_USE_TLS = True
 #razorpay
 RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
 RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
+
+
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'du7ckl6bt',
+    'API_KEY': '574553989435262',
+    'API_SECRET': 'YM5gQeRS9gRf2TQDhUitCFriW0g',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
