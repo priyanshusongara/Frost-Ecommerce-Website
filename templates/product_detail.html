@@ -2,103 +2,114 @@
 
 {% block content %}
 
-<form method="POST" action="{% url 'add_cart' single_product.id %}" class="frost-options">
-    {% csrf_token %}
 
-    <div class="frost-product-container">
-
-        <!-- Main Product Section -->
-        <div class="product-main">
-
-            <!-- Left: Image Gallery -->
-            <div class="product-gallery">
-                <div class="main-img-box">
-                    <img src="{{ single_product.images.url}}" alt="Product">
-                    <div class="frost-tag">TOP RATED</div>
-                </div>
+<div class="frost-product-container">
+    <!-- Main Product Section -->
+    <div class="product-main">
+        <!-- Left: Image Gallery -->
+        <div class="product-gallery">
+            <div class="main-img-box">
+                <img src="{{ single_product.images.url}}" alt="Product">
+                <div class="frost-tag">TOP RATED</div>
             </div>
+       </div>
 
-            <!-- Right: Purchase Details -->
-            <div class="product-info-panel">
 
-                <h1 class="product-name">{{ single_product.product_name}}</h1>
-
-                <div class="price-row">
-                    <span class="current-price">${{ single_product.price}}</span>
-                    <span class="rating-stars">★★★★☆ (12 Reviews)</span>
-                </div>
-
-                <p class="description">
-                    {{ single_product.description}}
-                </p>
-
-                <br>
-
-                <div class="row">
-                    <div class="item-option-select frost-select">
-
-                        <label class="select-label">*Choose Color & Sizes</label>
-
-                        <select name="color" class="form-control custom-select">
-                            <option value="" disabled selected>Select Color</option>
-                            {% for i in single_product.variation_set.colors %}
-                            <option value="{{ i.variation_value | lower }}">
-                                {{ i.variation_value | capfirst }}
-                            </option>
-                            {% endfor %}
-                        </select>
-
-                    </div>
-                </div>
-
-                <br>
-
-                <!-- SIZES -->
-                <div class="option-group">
-                    <div class="size-options">
-
-                        {% for i in single_product.variation_set.sizes %}
-
-                        <input 
-                            type="radio"
-                            id="size_{{ forloop.counter }}"
-                            name="size"
-                            value="{{ i.variation_value|lower }}"
-                            hidden
-                            required
-                        >
-
-                        <label for="size_{{ forloop.counter }}">
-                            {{ i.variation_value }}
-                        </label>
-
-                        {% endfor %}
-
-                    </div>
-                </div>
-
-                <!-- ACTIONS -->
-                <div class="action-grid">
-
-                    {% if single_product.stock <= 0 %}
-                        <br>
-                        <h2 class="ofs">Out of stock</h2>
-                    {% else %}
-                        <button type="submit" class="add-cart-btn">Add to Cart</button>
-                    {% endif %}
-
-                </div>
-
+        <!-- Right: Purchase Details -->
+        <div class="product-info-panel">
+            <h1 class="product-name">{{ single_product.product_name}}</h1>
+            <div class="price-row">
+                <span class="current-price">${{ single_product.price}}</span>
+                <span class="rating-stars">★★★★☆ (12 Reviews)</span>
             </div>
+            
+            <p class="description">
+                {{ single_product.description}}
+            </p>
 
-        </div>
+            <!-- Customization Options -->
+            
+            <form method="POST" action="{% url 'add_cart' single_product.id %}" class="frost-options">
+             {% csrf_token %}
+<br>
+<div class="row">
+    <div class="item-option-select frost-select">
+
+        <label class="select-label">*Choose Color & Sizes</label>
+
+        <select name="color" class="form-control custom-select">
+            <option value="" disabled selected>Select Color</option>
+            {% for i in single_product.variation_set.colors %}
+            <option value="{{ i.variation_value | lower }}">
+                {{ i.variation_value | capfirst }}
+            </option>
+            {% endfor %}
+        </select>
 
     </div>
+</div>
+<br>
+   <!-- <br>
 
-</form>
+    <div class="row">
+    <div class="item-option-select">
+        
+        <select name="color" class="form-control" required>
+            <option value="" disabled selected>Select</option>
+            {% for i in single_product.variation_set.colors %}
+            <option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    </div>
+    <br> -->
 
-<!-- Review Section -->
-<form action="{% url 'submit_review' single_product.id %}" method="POST">
+    <!-- 📏 SIZES -->
+    <div class="option-group">
+    <div class="size-options">
+
+        {% for i in single_product.variation_set.sizes %}
+        
+        <input 
+            type="radio"
+            id="size_{{ forloop.counter }}"
+            name="size"
+            value="{{ i.variation_value|lower }}"
+            hidden
+            required
+        >
+
+        <label for="size_{{ forloop.counter }}">
+            {{ i.variation_value }}
+        </label>
+
+        {% endfor %}
+
+    </div>
+     </div>
+
+    <!-- 🛒 BUTTON -->
+    
+
+
+            <!-- Actions -->
+            <div class="action-grid">
+                
+                {% if single_product.stock <= 0 %} <br>
+                <h2 class="ofs"> Out of stock</h3> 
+                {% else %}
+                     <button type="submit" class="add-cart-btn">Add to Cart</button>
+                {% endif %}
+                
+            </div>
+
+            </form>
+        </div> 
+    </div>
+    
+
+    <!-- Review Section -->
+    <form action="{% url 'submit_review' single_product.id %}" method="POST">
     {% csrf_token %}
 
     <h4>Write Your Review</h4>
