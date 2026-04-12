@@ -2,7 +2,8 @@
 
 {% block content %}
 
-
+<form method="POST" action="{% url 'add_cart' single_product.id %}" class="frost-options">
+             {% csrf_token %}
 <div class="frost-product-container">
     <!-- Main Product Section -->
     <div class="product-main">
@@ -12,11 +13,11 @@
                 <img src="{{ single_product.images.url}}" alt="Product">
                 <div class="frost-tag">TOP RATED</div>
             </div>
-  </div>
-
+       </div>
+    </div>
 
         <!-- Right: Purchase Details -->
-        <div class="product-info-panel">
+  <div class="product-info-panel">
             <h1 class="product-name">{{ single_product.product_name}}</h1>
             <div class="price-row">
                 <span class="current-price">${{ single_product.price}}</span>
@@ -25,15 +26,14 @@
             
             <p class="description">
                 {{ single_product.description}}
-            </p>
+            </p>   
 
             <!-- Customization Options -->
             
-            <form method="POST" action="{% url 'add_cart' single_product.id %}" class="frost-options">
-             {% csrf_token %}
+            
 <br>
-<div class="row">
-    <div class="item-option-select frost-select">
+        <div class="row">
+        <div class="item-option-select frost-select">
 
         <label class="select-label">*Choose Color & Sizes</label>
 
@@ -46,8 +46,8 @@
             {% endfor %}
         </select>
 
-    </div>
-</div>
+        </div>
+          </div>
 <br>
    <!-- <br>
 
@@ -102,8 +102,9 @@
                 {% endif %}
                 
             </div>
-        </div> </form>
-    </div>
+        </div> 
+</div>
+    </form>
 
     <!-- Review Section -->
     <form action="{% url 'submit_review' single_product.id %}" method="POST">
@@ -125,7 +126,7 @@
     </select>
 
     <button type="submit">Submit Review</button>
-</form>
+    </form>
 
 <h4>Customer Reviews</h4>
 
