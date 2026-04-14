@@ -92,7 +92,6 @@ It replicates real-world e-commerce systems with complete user and admin workflo
 * **Database:** PostgreSQL
 * **Media Storage:** Cloudinary
 * **Deployment:** Render
-* **Payments:** Razorpay
 
 ---
 
@@ -116,7 +115,7 @@ It replicates real-world e-commerce systems with complete user and admin workflo
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 ```bash
 git clone https://github.com/priyanshusongara/frost.git
@@ -128,7 +127,7 @@ python manage.py runserver
 
 ---
 
-## 🧠 Core Concepts Implemented
+## Core Concepts Implemented
 
 * Django MVT Architecture
 * Custom User Model (Email Authentication)
@@ -142,7 +141,7 @@ python manage.py runserver
 
 ---
 
-## 🔥 Key Highlights
+## Key Highlights
 
 * Real-world e-commerce workflow implementation
 * Seamless cart experience across sessions
@@ -153,7 +152,7 @@ python manage.py runserver
 
 ---
 
-## 🚀 What I Learned
+## What I Learned
 
 * Built a complete e-commerce platform from scratch
 * Implemented complex cart and session logic
@@ -163,7 +162,5 @@ python manage.py runserver
 
 ---
 
-## 👨‍💻 Author
-
-**Priyanshu Songara**
-﻿# Frost-Ecommerce-Website
+## Author & Developer :  **Priyanshu Songara**
+﻿
