@@ -1,12 +1,13 @@
-# 🛒 FROST - Men's Wear E-commerce Website
+# FROST - Men's Wear E-commerce Website <img width="100" height="100" alt="logo" src="https://github.com/user-attachments/assets/46778370-700c-4831-ab27-09d399c81aae" />
 
-## 🌐 Live Website (Production)
+
+## Live Website (Production)
 
 🔗 https://frost-996m.onrender.com/
 
 ---
 
-## 📌 Overview
+##  Overview
 
 FROST is a full-stack, production-ready e-commerce web application built using Django. It allows users to browse products, manage carts, place orders, and track purchase history.
 
@@ -14,9 +15,9 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-## ✨ Features
+##  Features
 
-### 👤 User Authentication
+### User Authentication
 
 * Email-based registration & login
 * Secure user accounts
@@ -24,7 +25,7 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### 🛍️ Product & Store
+### Product & Store
 
 * Browse men's wear products
 * Individual product detail pages
@@ -35,7 +36,7 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### 📦 Product Detail Experience
+### Product Detail Experience
 
 * View detailed product information
 * Select size and color variations
@@ -43,7 +44,7 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### 🛒 Cart System
+### Cart System
 
 * Add/remove products
 * Increase/decrease quantity
@@ -52,7 +53,7 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### 🔄 Advanced Cart Logic
+###  Advanced Cart Logic
 
 * Anonymous users can add items to cart
 * On login, session cart is merged with user account
@@ -60,7 +61,7 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### 💳 Checkout & Orders
+###  Checkout & Orders
 
 * Login required before checkout
 * Orders stored per user
@@ -68,13 +69,13 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-### ⭐ Reviews System
+###  Reviews System
 
 * Only verified buyers can review products
 
 ---
 
-### ⚙️ Admin Capabilities
+###  Admin Capabilities
 
 * Custom admin panel for product management
 * Add, edit, and delete products
@@ -95,25 +96,21 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ---
 
-## 📸 Screenshots
-
-(Add your screenshots here)
-
-```md
-![Home Page](screenshots/home.png)
-```
-
-```md
-![Product Page](screenshots/product.png)
-```
-
-```md
-![Cart Page](screenshots/cart.png)
-```
-
-```md
-![Checkout](screenshots/checkout.png)
-```
+## Screenshots
+1. HomePage
+<img width="1920" height="1080" alt="Screenshot (3600)" src="https://github.com/user-attachments/assets/c863de21-121f-4c98-a6cc-e42c8bedda6d" />
+2. Home page woth Products
+<img width="1920" height="1080" alt="Screenshot (3599)" src="https://github.com/user-attachments/assets/45614cbf-6a49-4191-99c8-6f034f17ad22" />
+3. STore Page with category search & pagination
+<img width="1920" height="1080" alt="Screenshot (3598)" src="https://github.com/user-attachments/assets/678dffe0-3b8a-43da-aa32-8455e0dbda35" />
+4. Login/Register Page
+<img width="1920" height="1080" alt="Screenshot (3597)" src="https://github.com/user-attachments/assets/bcf36628-91aa-46b4-9a77-86da990548c5" />
+5. Cart with checkout option & increase and decrease in quantity and price changes accordingly
+<img width="1920" height="1080" alt="Screenshot (3596)" src="https://github.com/user-attachments/assets/7f7bb973-1dd7-4266-b87e-bf9cb764c155" />
+6. Product Description Page
+<img width="1920" height="1080" alt="Screenshot (3593)" src="https://github.com/user-attachments/assets/98846af3-419e-4613-8fcf-8d7c19623a21" />
+7. Mobile View of the website
+8. ![IMG_20260415_014211 jpg](https://github.com/user-attachments/assets/cf5ac0ae-e3a9-460a-a001-20be6bdf01e9)
 
 ---
 
