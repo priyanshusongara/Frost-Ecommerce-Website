@@ -9,9 +9,9 @@
 
 ##  Overview
 
-FROST is a full-stack, production-ready e-commerce web application built using Django. It allows users to browse products, manage carts, place orders, and track purchase history.
+FROST is a full-stack, production-ready and fully deployed e-commerce web application built using Django. The platform is live and allows users to browse products, manage carts, place orders, and track purchase history.
 
-This project mimics real-world e-commerce platforms with complete user and admin workflows, including authentication, session handling, product management, and order processing.
+It replicates real-world e-commerce systems with complete user and admin workflows, including authentication, session management, product handling, and order processing.
 
 ---
 
@@ -98,19 +98,21 @@ This project mimics real-world e-commerce platforms with complete user and admin
 
 ## Screenshots
 1. HomePage
-<img width="1920" height="1080" alt="Screenshot (3600)" src="https://github.com/user-attachments/assets/c863de21-121f-4c98-a6cc-e42c8bedda6d" />
-2. Home page woth Products
-<img width="1920" height="1080" alt="Screenshot (3599)" src="https://github.com/user-attachments/assets/45614cbf-6a49-4191-99c8-6f034f17ad22" />
-3. STore Page with category search & pagination
-<img width="1920" height="1080" alt="Screenshot (3598)" src="https://github.com/user-attachments/assets/678dffe0-3b8a-43da-aa32-8455e0dbda35" />
-4. Login/Register Page
-<img width="1920" height="1080" alt="Screenshot (3597)" src="https://github.com/user-attachments/assets/bcf36628-91aa-46b4-9a77-86da990548c5" />
-5. Cart with checkout option & increase and decrease in quantity and price changes accordingly
-<img width="1920" height="1080" alt="Screenshot (3596)" src="https://github.com/user-attachments/assets/7f7bb973-1dd7-4266-b87e-bf9cb764c155" />
-6. Product Description Page
 <img width="1920" height="1080" alt="Screenshot (3593)" src="https://github.com/user-attachments/assets/98846af3-419e-4613-8fcf-8d7c19623a21" />
+2. Home page woth Products
+<img width="1920" height="1080" alt="Screenshot (3596)" src="https://github.com/user-attachments/assets/7f7bb973-1dd7-4266-b87e-bf9cb764c155" />
+3. STore Page with category search & pagination
+<img width="1920" height="1080" alt="Screenshot (3597)" src="https://github.com/user-attachments/assets/bcf36628-91aa-46b4-9a77-86da990548c5" />
+4. Login/Register Page
+<img width="1920" height="1080" alt="Screenshot (3598)" src="https://github.com/user-attachments/assets/678dffe0-3b8a-43da-aa32-8455e0dbda35" />
+5. Cart with checkout option & increase and decrease in quantity and price changes accordingly
+<img width="1920" height="1080" alt="Screenshot (3599)" src="https://github.com/user-attachments/assets/45614cbf-6a49-4191-99c8-6f034f17ad22" />
+6. Product Description Page
+<img width="1920" height="1080" alt="Screenshot (3600)" src="https://github.com/user-attachments/assets/c863de21-121f-4c98-a6cc-e42c8bedda6d" />
 7. Mobile View of the website
-8. ![IMG_20260415_014211 jpg](https://github.com/user-attachments/assets/cf5ac0ae-e3a9-460a-a001-20be6bdf01e9)
+   ![IMG_20260415_014211 jpg](https://github.com/user-attachments/assets/2ffb68f5-dd55-48d2-b659-f7217bb1cce7)
+
+
 
 ---
 
