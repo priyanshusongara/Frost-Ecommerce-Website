@@ -55,7 +55,12 @@ def register(request):
                                        })
             to_email= email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()            
+            
+            send_email.content_subtype = "html"
+            try:
+                send_email.send()
+            except Exception as e:
+                print("EMAIL ERROR:", str(e))           
 
             messages.success (request, 'Thank you for registering with us. We have sent you a verification email on your email address to activate your account')
             return redirect('register')
@@ -150,9 +155,15 @@ def forgotPassword(request):
                 })
             to_email=email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
-            send_email.send()
-            messages.success (request, 'Password reset email has been sent to your email address.')
-            return redirect('login')
+            send_email.content_subtype = "html"
+            try:
+                send_email.send()
+                messages.success (request, 'Password reset email has been sent to your email address.')
+                return redirect('login')
+            except Exception as e:
+                print("EMAIL ERROR:", str(e))  
+        
+            
         else:
             messages.error(request, 'Account does not exist!')
             return redirect('forgotPassword')

@@ -134,7 +134,7 @@ def payment_success(request):
         order.status = "Completed"
         order.save()
 
-        # MOVE CART → ORDER PRODUCTS
+        
         cart_items = CartItem.objects.filter(user=request.user)
 
         for item in cart_items:
