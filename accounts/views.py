@@ -132,7 +132,7 @@ def activate(request, uidb64, token):
 @login_required(login_url = 'login')
 
 def dashboard(request):
-    return render(request, 'accounts/dashboard.html')
+    return render(request, 'cart.html')
 
 def forgotPassword(request):
     if request.method == 'POST':

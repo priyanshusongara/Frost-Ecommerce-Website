@@ -129,12 +129,12 @@ MESSAGE_TAGS = {
 # =========================
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'priyanshusongara23@gmail.com'
-EMAIL_HOST_PASSWORD = 'YOUR_APP_PASSWORD'
+#EMAIL_HOST_USER = 'priyanshusongara23@gmail.com'
+#EMAIL_HOST_PASSWORD = 'YOUR_APP_PASSWORD'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 # =========================
 # RAZORPAY
 # =========================
-RAZORPAY_KEY_ID = "rzp_test_SbmHGZL4Q6eWad"
-RAZORPAY_KEY_SECRET = "wfig8P5pIt1KEbqOFcamNElk"
